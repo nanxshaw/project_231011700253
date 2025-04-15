@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:project_231011700253/component/toast_dialog.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({super.key});
@@ -16,14 +18,27 @@ class _UserScreenState extends State<UserScreen> {
       label == 'Ubah' ? counter++ : counter2++;
     });
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Tombol $label telah diklik : ${label == 'Ubah' ? counter : counter2}'),
-        duration: const Duration(seconds: 1),
-      ),
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   SnackBar(
+    //     content: Text('Tombol $label telah diklik : ${label == 'Ubah' ? counter : counter2}'),
+    //     duration: const Duration(seconds: 1),
+    //   ),
+    // );
+    toastDialog(
+      context: context,
+      title: "Notice",
+      description:'anda ingin ${label} ?',
+      onConfirm: () {
+        Fluttertoast.showToast(
+          msg: 'Tombol $label telah diklik : ${label == 'Ubah' ? counter : counter2}',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Color(0xFFFFA726),
+          textColor: Colors.white,
+        );
+      },
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +72,6 @@ class _UserScreenState extends State<UserScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // IconButton(
-                      //   icon: const Icon(Icons.arrow_back, color: Colors.white),
-                      //   onPressed: () {
-                      //     Navigator.pop(context);
-                      //   },
-                      // ),
                       const Text(
                         'PROFILE',
                         style: TextStyle(
@@ -71,10 +80,6 @@ class _UserScreenState extends State<UserScreen> {
                           color: Colors.white,
                         ),
                       ),
-                      // IconButton(
-                      //   icon: const Icon(Icons.settings, color: Colors.white),
-                      //   onPressed: () {},
-                      // ),
                     ],
                   ),
                 ),
@@ -88,9 +93,9 @@ class _UserScreenState extends State<UserScreen> {
                           border: Border.all(color: Colors.white, width: 4),
                         ),
                         child: const CircleAvatar(
-                          radius: 50,
-                          backgroundImage:AssetImage('../../assets/user/profile.jpg')
-                        ),
+                            radius: 50,
+                            backgroundImage:
+                                AssetImage('../../assets/user/profile.jpg')),
                       ),
                       const SizedBox(height: 15),
                       const Text(
