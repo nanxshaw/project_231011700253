@@ -33,8 +33,6 @@ class _UserScreenState extends State<UserScreen> {
           msg: 'Tombol $label telah diklik : ${label == 'Ubah' ? counter : counter2}',
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
-          backgroundColor: Color(0xFFFFA726),
-          textColor: Colors.white,
         );
       },
     );
