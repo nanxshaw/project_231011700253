@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_231011700253/views/history_screen.dart';
 import 'package:project_231011700253/views/home_screen.dart';
 import 'package:project_231011700253/views/user_screen.dart';
 
@@ -14,6 +15,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
 
   final List<Widget> _pages = [
     const HomeScreen(),
+    const HistoryScreen(),
     const UserScreen(),
   ];
 
@@ -24,11 +26,12 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
       bottomNavigationBar: BottomNavigationBar(
         items:[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Riwayat'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'User'),
         ],
         backgroundColor: Colors.white,
         unselectedItemColor: Colors.grey,
-        selectedItemColor: Color(0xFFD84315),
+        selectedItemColor: Color(0xFFFF0B55),
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {

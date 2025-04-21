@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:project_231011700253/component/border_border.dart';
+import 'package:project_231011700253/component/button.dart';
+import 'package:project_231011700253/component/header.dart';
 import 'package:project_231011700253/component/toast_dialog.dart';
+import 'package:project_231011700253/model/menu_item.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({super.key});
@@ -18,19 +22,14 @@ class _UserScreenState extends State<UserScreen> {
       label == 'Ubah' ? counter++ : counter2++;
     });
 
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   SnackBar(
-    //     content: Text('Tombol $label telah diklik : ${label == 'Ubah' ? counter : counter2}'),
-    //     duration: const Duration(seconds: 1),
-    //   ),
-    // );
     toastDialog(
       context: context,
       title: "Notice",
-      description:'anda ingin ${label} ?',
+      description: 'Anda ingin ${label}?',
       onConfirm: () {
         Fluttertoast.showToast(
-          msg: 'Tombol $label telah diklik : ${label == 'Ubah' ? counter : counter2}',
+          msg:
+              'Tombol $label telah diklik : ${label == 'Ubah' ? counter : counter2}',
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
         );
@@ -40,127 +39,146 @@ class _UserScreenState extends State<UserScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final List<MenuItem> menuItems = [
+      MenuItem(
+        menu: 'Profile',
+        link: '/profile',
+        icon: Icons.person,
+        color: Colors.black,
+      ),
+      MenuItem(
+        menu: 'Membership',
+        link: '/membership',
+        icon: Icons.card_membership,
+        color: Colors.black,
+      ),
+      MenuItem(
+        menu: 'Forget Password',
+        link: '/forget-password',
+        icon: Icons.lock_reset,
+        color: Colors.black,
+      ),
+      MenuItem(
+        menu: 'Keluar',
+        link: '/keluar',
+        icon: Icons.exit_to_app,
+        color: Colors.red,
+      ),
+    ];
+
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: ClipPath(
-              clipper: CustomClipPath(),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.2,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xFFFFA726), Color(0xFFD84315)],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-              ),
-            ),
+          const Header(
+            title: 'Profile',
+            isTitleCentered: true,
           ),
-          SafeArea(
+          SingleChildScrollView(
+            padding: const EdgeInsets.only(top: 140, bottom: 24),
             child: Column(
               children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'PROFILE',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white, width: 4),
+                  ),
+                  child: const CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage('assets/user/profile.jpg'),
                   ),
                 ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 20),
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 4),
-                        ),
-                        child: const CircleAvatar(
-                            radius: 50,
-                            backgroundImage:
-                                AssetImage('../../assets/user/profile.jpg')),
-                      ),
-                      const SizedBox(height: 15),
-                      const Text(
-                        'Nanang Tri Nur Wicaksono',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFFD84315),
-                        ),
-                      ),
-                      const Text(
-                        '231011700253',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30),
-                        child: Text(
-                          "I like the development of programming language technology. because application development is the same as me developing my skills in the world of mobile developers. because of that I like challenges, because challenges I can be motivated.",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 14, color: Colors.black54),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFD84315),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 25, vertical: 10),
-                            ),
-                            onPressed: () {
-                              _onClick('Ubah');
-                            },
-                            child: const Text('Ubah',
-                                style: TextStyle(color: Colors.white)),
-                          ),
-                          const SizedBox(width: 20),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                side:
-                                    const BorderSide(color: Color(0xFFD84315)),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 25, vertical: 10),
-                            ),
-                            onPressed: () {
-                              _onClick('Kembali');
-                            },
-                            child: const Text('Kembali',
-                                style: TextStyle(color: Color(0xFFD84315))),
-                          ),
-                        ],
-                      ),
-                    ],
+                const SizedBox(height: 15),
+                const Text(
+                  'Nanang Tri Nur Wicaksono',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFFF0B55),
                   ),
+                ),
+                const Text(
+                  '231011700253',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  child: Text(
+                    "I like the development of programming language technology...",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14, color: Colors.black54),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Button(
+                        text: 'Ubah Profile',
+                        isFullWidth: true,
+                        onPressed: () {
+                          _onClick('Ubah Profile');
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: ButtonBorder(
+                        text: 'Membership',
+                        isFullWidth: true,
+                        onPressed: () {
+                          _onClick('Membership');
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                  ],
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: menuItems.length,
+                  itemBuilder: (context, index) {
+                    final item = menuItems[index];
+                    return InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, item.link);
+                      },
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Colors.grey,
+                              width: 0.5,
+                            ),
+                          ),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 14),
+                        child: Row(
+                          children: [
+                            Icon(item.icon, size: 28, color: item.color),
+                            const SizedBox(width: 16),
+                            Text(
+                              item.menu,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: item.color,
+                                fontWeight: item.menu.toLowerCase() == 'keluar'
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
@@ -169,24 +187,4 @@ class _UserScreenState extends State<UserScreen> {
       ),
     );
   }
-}
-
-class CustomClipPath extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.lineTo(0, size.height - 50);
-    path.quadraticBezierTo(
-      size.width / 2,
-      size.height,
-      size.width,
-      size.height - 50,
-    );
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

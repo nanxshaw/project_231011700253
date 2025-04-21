@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_231011700253/views/user_screen.dart';
+import 'package:project_231011700253/component/header.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,88 +12,41 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: ClipPath(
-              clipper: CustomClipPath(),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.2,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xFFFFA726), Color(0xFFD84315)],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-              ),
-            ),
+          Header(
+            title: 'Dashboard',
+            isTitleCentered: true,
           ),
+
           SafeArea(
             child: Column(
               children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 60),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                const SizedBox(height: 160),
+                Expanded(
+                  child: ListView(
                     children: [
-                      const Text(
-                        'Dashboard',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 20, left: 16, right: 16),
+                            child: Row(
+                              children: [
+                                _buildMenuCard(Icons.list_alt, 'List Data'),
+                                const SizedBox(width: 10),
+                                _buildMenuCard(Icons.add_box, 'Create Data'),
+                                const SizedBox(width: 10),
+                                _buildMenuCard(Icons.info_outline, 'About'),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ),
-                Expanded(
-                    child: ListView(
-                  children: [
-                    Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: Padding(
-                            padding: EdgeInsets.only(top: 20.0),
-                            child: Text(
-                              'Selamat Datang, Nanang',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              EdgeInsets.only(top: 20, left: 16, right: 16),
-                          child: Row(
-                            children: [
-                              _buildMenuCard(Icons.list_alt, 'List Data'),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              _buildMenuCard(Icons.add_box, 'Create Data'),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              _buildMenuCard(Icons.info_outline, 'About'),
-                              SizedBox(
-                                width: 10,
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                )),
               ],
             ),
           ),
@@ -114,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.grey.withOpacity(0.3),
               spreadRadius: 2,
               blurRadius: 8,
-              offset: Offset(0, 4),
+              offset: const Offset(0, 4),
             )
           ],
         ),
@@ -128,12 +81,12 @@ class _HomeScreenState extends State<HomeScreen> {
               Icon(
                 icon,
                 size: 40,
-                color: Color(0xFFD84315),
+                color: const Color(0xFFFF0B55),
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               Text(
                 label,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
