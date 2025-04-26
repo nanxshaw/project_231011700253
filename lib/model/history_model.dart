@@ -7,6 +7,7 @@ class HistoryItem {
   final DateTime createdAt;
   final IconData icon;
   final String link;
+  final bool checked;
 
   HistoryItem({
     required this.title,
@@ -15,5 +16,6 @@ class HistoryItem {
     required this.createdAt,
     required this.icon,
     required this.link,
+    required this.checked,
   });
 }

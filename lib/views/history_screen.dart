@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:project_231011700253/component/button.dart';
+// import 'package:project_231011700253/component/button.dart';
 import 'package:project_231011700253/component/header.dart';
-import 'package:project_231011700253/model/history_model.dart'; // Untuk format tanggal
+import 'package:project_231011700253/model/history_model.dart';
 
-class HistoryScreen extends StatelessWidget {
-  const HistoryScreen({Key? key}) : super(key: key);
+class HistoryScreen extends StatefulWidget {
+  const HistoryScreen({super.key});
 
+  @override
+  State<HistoryScreen> createState() => _HistoryScreenState();
+}
+
+class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     final List<HistoryItem> historyItems = [
@@ -18,6 +23,7 @@ class HistoryScreen extends StatelessWidget {
         createdAt: DateTime.now().subtract(const Duration(hours: 5)),
         icon: Icons.fitness_center,
         link: 'https://example.com/push-day',
+        checked:false
       ),
       HistoryItem(
         title: 'Leg Day Gains',
@@ -27,6 +33,7 @@ class HistoryScreen extends StatelessWidget {
         createdAt: DateTime.now().subtract(const Duration(days: 1)),
         icon: Icons.directions_run,
         link: 'https://example.com/leg-day',
+        checked:false
       ),
       HistoryItem(
         title: 'Full Body HIIT',
@@ -36,6 +43,7 @@ class HistoryScreen extends StatelessWidget {
         createdAt: DateTime.now().subtract(const Duration(days: 2)),
         icon: Icons.flash_on,
         link: 'https://example.com/full-body-hiit',
+        checked:false
       ),
       HistoryItem(
         title: 'Stretch & Recovery',
@@ -45,6 +53,7 @@ class HistoryScreen extends StatelessWidget {
         createdAt: DateTime.now().subtract(const Duration(days: 3)),
         icon: Icons.self_improvement,
         link: 'https://example.com/stretch-recovery',
+        checked:false
       ),
       HistoryItem(
         title: 'Nutrition for Muscle Growth',
@@ -54,9 +63,9 @@ class HistoryScreen extends StatelessWidget {
         createdAt: DateTime.now().subtract(const Duration(days: 4)),
         icon: Icons.restaurant,
         link: 'https://example.com/gym-nutrition',
+        checked:false
       ),
     ];
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -89,42 +98,69 @@ class HistoryScreen extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Icon(item.icon,
-                                  size: 40, color: Color(0xFFCF0F47)),
-                              SizedBox(width: 10),
-                              Text(
-                                item.title,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFFCF0F47),
+                              Checkbox(
+                                value: item.checked,
+                                onChanged: (bool? value) {
+                                  // setState(() {
+                                  //   item.checked = value;
+                                  // });
+                                },
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Icon(item.icon,
+                                            size: 30, color: Color(0xFFCF0F47)),
+                                        SizedBox(width: 10),
+                                        Expanded(
+                                          child: Text(
+                                            item.title,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xFFCF0F47),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      item.shortDesc,
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: Color(0xFF1F1F1F)),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      DateFormat('yyyy-MM-dd HH:mm')
+                                          .format(item.createdAt),
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          color: Color(0xFF1F1F1F)),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
-                          SizedBox(height: 8),
-                          Text(
-                            item.shortDesc,
-                            style: TextStyle(
-                                fontSize: 16, color: Color(0xFF1F1F1F)),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            DateFormat('yyyy-MM-dd HH:mm')
-                                .format(item.createdAt),
-                            style: TextStyle(
-                                fontSize: 10, color: Color(0xFF1F1F1F)),
-                          ),
-                          Button(
-                            text: 'Detail',
-                            alignment: Alignment.bottomRight,
-                            onPressed: () {
-                              print('Tombol Diklik');
-                            },
-                          )
                         ],
                       ),
                     ),
+
+                    // child: CheckboxListTile(
+                    //   title: Text('asasds'),
+                    //   value: is_checked,
+                    // onChanged: (value) {
+                    //   setState(() {
+                    //     is_checked = value!;
+                    //   });
+                    //   final message = value! ? "Subscribed" : "Unsubscribed";
+                    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+                    // },),
                   ),
                 );
               },

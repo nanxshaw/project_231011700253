@@ -24,7 +24,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     return Scaffold(
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        items:[
+        items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Riwayat'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'User'),
