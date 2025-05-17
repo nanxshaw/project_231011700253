@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Column(
                         children: [
+                          Text('Selamat Datang di Dashboard',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
                           Padding(
                             padding: const EdgeInsets.only(
                                 top: 20, left: 16, right: 16),

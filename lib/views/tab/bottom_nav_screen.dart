@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project_231011700253/views/history_screen.dart';
 import 'package:project_231011700253/views/home_screen.dart';
-import 'package:project_231011700253/views/user_screen.dart';
+import 'package:project_231011700253/views/list_data/list_screen.dart';
+import 'package:project_231011700253/views/profile_screen.dart';
 
 class BottomNavScreen extends StatefulWidget {
   const BottomNavScreen({super.key});
@@ -15,8 +15,8 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
 
   final List<Widget> _pages = [
     const HomeScreen(),
-    const HistoryScreen(),
-    const UserScreen(),
+    const ProfileScreen(),
+    const ListScreen(),
   ];
 
   @override
@@ -25,9 +25,9 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Riwayat'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'User'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Beranda'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'List'),
         ],
         backgroundColor: Colors.white,
         unselectedItemColor: Colors.grey,

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
 class MenuItem {
-  final String menu;
-  final String link;
+  final String title;
+  final String text;
   final IconData icon;
-  final Color color;
 
   MenuItem({
-    required this.menu,
-    required this.link,
+    required this.title,
+    required this.text,
     required this.icon,
-    required this.color,
   });
 }

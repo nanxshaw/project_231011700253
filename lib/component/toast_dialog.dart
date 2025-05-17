@@ -19,8 +19,8 @@ void toastDialog({
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pop(); // close dialog first
-              onConfirm(); // execute the passed function
+              Navigator.of(context).pop(); 
+              onConfirm(); 
             },
             child: Text("OK"),
           ),

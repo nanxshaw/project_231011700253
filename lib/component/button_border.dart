@@ -37,7 +37,7 @@ class ButtonBorder extends StatelessWidget {
       child: Text(
         text,
         style: const TextStyle(
-          fontSize: 16,
+          fontSize: 13,
           fontWeight: FontWeight.bold,
         ),
       ),
