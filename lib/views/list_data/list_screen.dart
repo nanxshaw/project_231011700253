@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:project_231011700253/component/date_time_dialog.dart';
 import 'package:project_231011700253/component/header.dart';
-import 'package:project_231011700253/component/toast_dialog.dart';
 import 'package:project_231011700253/model/list_item_model.dart';
 import 'package:project_231011700253/views/list_data/list_detail_screen.dart';
 
@@ -72,6 +72,22 @@ class _ListScreenState extends State<ListScreen> {
         createdAt: DateTime.now().subtract(const Duration(days: 7)),
         icon: Icons.radio_button_checked,
       ),
+      ListItem(
+        title: 'Pertemuan 8',
+        shortDesc: 'Spinner / Dropdown / SelectBox',
+        desc:
+            'Pada pertemuan ini dibahas penggunaan Spinner, Dropdown, dan SelectBox di Flutter untuk menangani input pilihan dari beberapa opsi serta pengelolaan state-nya.',
+        createdAt: DateTime.now().subtract(const Duration(days: 7)),
+        icon: Icons.arrow_drop_down_circle,
+      ),
+      ListItem(
+        title: 'Pertemuan 9',
+        shortDesc: 'Date Picker dan Time Picker',
+        desc:
+            'Pada pertemuan ini dibahas penggunaan Date Picker dan Time Picker di Flutter untuk memungkinkan pengguna memilih tanggal dan waktu, serta bagaimana cara menangani nilainya dalam state aplikasi.',
+        createdAt: DateTime.now().subtract(const Duration(days: 7)),
+        icon: Icons.date_range,
+      ),
     ];
 
     return Scaffold(
@@ -82,12 +98,7 @@ class _ListScreenState extends State<ListScreen> {
             title: 'List Data',
             icon: Icons.search,
             onIconPressed: () {
-              toastDialog(
-                context: context,
-                title: 'Search',
-                description: 'ini tombol search',
-                onConfirm: () {},
-              );
+              showDateTimeDialog(context);
             },
           ),
           Expanded(
