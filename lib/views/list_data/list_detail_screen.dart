@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:project_231011700253/component/button.dart';
 import 'package:project_231011700253/model/list_item_model.dart';
+import 'package:project_231011700253/views/map/maps_screen.dart';
 
 class DetailScreen extends StatefulWidget {
   final ListItem item;
@@ -204,6 +205,11 @@ class _DetailScreenState extends State<DetailScreen> {
               text: 'Autocomplete Data',
               isFullWidth: true,
               onPressed: _showAutocompletePopup,
+            ),
+            Button(
+              text: 'Lihat Maps',
+              isFullWidth: true,
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) =>  MapsScreen())),
             ),
             const SizedBox(height: 20),
             if (selectedItem1 != null)

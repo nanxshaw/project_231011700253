@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_231011700253/views/tab/bottom_nav_screen.dart';
+import 'package:project_231011700253/views/auth/login_screen.dart';
+// import 'package:project_231011700253/views/tab/bottom_nav_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true
       ),
       debugShowCheckedModeBanner: false,
-      home: BottomNavScreen(),
+      // home: BottomNavScreen(),
+      home: LoginScreen(),
     );
   }
 }

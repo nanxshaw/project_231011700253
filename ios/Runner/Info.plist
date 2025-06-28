@@ -28,6 +28,12 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>App membutuhkan akses lokasi untuk menampilkan rute</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>App membutuhkan akses lokasi background</string>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -45,5 +51,7 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>GMSApiKey</key>
+	<string>AIzaSyBrln8U4rwZKjcYaWfN2JMoScd-qvriyto</string>
 </dict>
 </plist>

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_231011700253/component/header.dart';
+import 'package:project_231011700253/views/media/media_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,7 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
             title: 'Dashboard',
             isTitleCentered: true,
           ),
-
           SafeArea(
             child: Column(
               children: [
@@ -29,7 +29,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Column(
                         children: [
-                          Text('Selamat Datang di Dashboard',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
+                          Text(
+                            'Selamat Datang di Dashboard',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 22),
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(
                                 top: 20, left: 16, right: 16),
@@ -74,7 +78,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: InkWell(
           onTap: () {
-            print('Tapped on $label');
+            Navigator.push(context,
+                MaterialPageRoute(builder: (_) =>  MediaListView()));
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
