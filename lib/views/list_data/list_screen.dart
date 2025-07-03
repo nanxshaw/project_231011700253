@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:project_231011700253/component/date_time_dialog.dart';
-import 'package:project_231011700253/component/header.dart';
+// import 'package:project_231011700253/component/date_time_dialog.dart';
+// import 'package:project_231011700253/component/header.dart';
 import 'package:project_231011700253/model/list_item_model.dart';
+import 'package:project_231011700253/views/about/about_screen.dart';
 import 'package:project_231011700253/views/list_data/list_detail_screen.dart';
 
 class ListScreen extends StatefulWidget {
@@ -13,100 +14,229 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListScreenState extends State<ListScreen> {
+  List<ListItem> allItems = [];
+  List<ListItem> filteredItems = [];
+  TextEditingController searchController = TextEditingController();
+
   @override
-  Widget build(BuildContext context) {
-    final List<ListItem> listItems = [
+  void initState() {
+    super.initState();
+    allItems = _generateListItems();
+    filteredItems = List.from(allItems);
+  }
+
+  void _filterList(String query) {
+    setState(() {
+      filteredItems =
+          allItems.where((item) {
+            final lowerQuery = query.toLowerCase();
+            return item.title.toLowerCase().contains(lowerQuery) ||
+                item.shortDesc.toLowerCase().contains(lowerQuery);
+          }).toList();
+    });
+  }
+
+  List<ListItem> _generateListItems() {
+    return [
       ListItem(
-        title: 'Pertemuan 1',
-        shortDesc: 'Pengenalan & Instalasi Flutter',
+        title: 'Pertemuan 14',
+        shortDesc: 'Google Map',
         desc:
-            'Pada pertemuan ini dibahas mengenai pengenalan Flutter, manfaatnya dalam pengembangan aplikasi mobile, serta panduan instalasi Flutter dan tools pendukung.',
-        createdAt: DateTime.now().subtract(const Duration(days: 1)),
-        icon: Icons.flutter_dash,
+            'Membahas integrasi Google Maps di Flutter menggunakan google_maps_flutter serta penambahan marker.',
+        createdAt: DateTime.now().subtract(const Duration(days: 0)),
+        icon: Icons.map,
+        image: 'assets/images/google_map.webp',
       ),
       ListItem(
-        title: 'Pertemuan 2',
-        shortDesc: 'Widget pada Android',
+        title: 'Pertemuan 13',
+        shortDesc: 'Multimedia: Audio & Video',
         desc:
-            'Pertemuan ini membahas berbagai jenis widget dalam Flutter, cara menggunakannya untuk membangun UI, serta prinsip layouting dalam aplikasi.',
-        createdAt: DateTime.now().subtract(const Duration(days: 2)),
-        icon: Icons.widgets,
+            'Menjelaskan cara memutar audio dan video menggunakan plugin seperti audioplayers dan video_player.',
+        createdAt: DateTime.now().subtract(const Duration(days: 0)),
+        icon: Icons.multitrack_audio,
+        image: 'assets/images/multimedia.png',
       ),
       ListItem(
-        title: 'Pertemuan 3',
-        shortDesc: 'Activity dan Intent',
+        title: 'Pertemuan 12',
+        shortDesc: 'Option Menu & Context Menu',
         desc:
-            'Materi ini menjelaskan peran Activity sebagai komponen utama aplikasi Android dan bagaimana Intent digunakan untuk berpindah halaman dan membawa data.',
-        createdAt: DateTime.now().subtract(const Duration(days: 3)),
-        icon: Icons.screen_rotation,
+            'Membahas pembuatan popup menu (options) dan menu kontekstual (long-press) di Flutter.',
+        createdAt: DateTime.now().subtract(const Duration(days: 0)),
+        icon: Icons.menu_open,
+        image: 'assets/images/menu.jpg',
       ),
       ListItem(
-        title: 'Pertemuan 4',
-        shortDesc: 'Toast dan Alert Dialog',
+        title: 'Pertemuan 11',
+        shortDesc: 'Search View',
         desc:
-            'Dalam sesi ini, dibahas cara menampilkan pesan singkat menggunakan Toast serta membuat kotak dialog interaktif menggunakan AlertDialog.',
-        createdAt: DateTime.now().subtract(const Duration(days: 4)),
-        icon: Icons.notification_important,
+            'Membahas cara menambahkan fitur pencarian menggunakan SearchDelegate untuk mencari item dalam daftar.',
+        createdAt: DateTime.now().subtract(const Duration(days: 0)),
+        icon: Icons.search,
+        image: 'assets/images/search_view.png',
       ),
       ListItem(
-        title: 'Pertemuan 5',
-        shortDesc: 'List View',
+        title: 'Pertemuan 10',
+        shortDesc: 'Tab Layout',
         desc:
-            'Pertemuan ini fokus membahas cara menampilkan daftar data secara dinamis menggunakan ListView di Flutter, lengkap dengan scroll dan builder.',
-        createdAt: DateTime.now().subtract(const Duration(days: 5)),
-        icon: Icons.view_list,
-      ),
-      ListItem(
-        title: 'Pertemuan 6',
-        shortDesc: 'Checkbox',
-        desc:
-            'Materi ini menjelaskan bagaimana membuat dan mengelola Checkbox di Flutter untuk menangani pilihan ganda dari pengguna.',
-        createdAt: DateTime.now().subtract(const Duration(days: 6)),
-        icon: Icons.check_box,
-      ),
-      ListItem(
-        title: 'Pertemuan 7',
-        shortDesc: 'Radio Button',
-        desc:
-            'Pada pertemuan ini dibahas penggunaan Radio Button di Flutter untuk menangani input pilihan tunggal serta pengelolaan state-nya.',
-        createdAt: DateTime.now().subtract(const Duration(days: 7)),
-        icon: Icons.radio_button_checked,
-      ),
-      ListItem(
-        title: 'Pertemuan 8',
-        shortDesc: 'Spinner / Dropdown / SelectBox',
-        desc:
-            'Pada pertemuan ini dibahas penggunaan Spinner, Dropdown, dan SelectBox di Flutter untuk menangani input pilihan dari beberapa opsi serta pengelolaan state-nya.',
-        createdAt: DateTime.now().subtract(const Duration(days: 7)),
-        icon: Icons.arrow_drop_down_circle,
+            'Membahas cara membuat TabBar dan TabBarView di Flutter, termasuk navigasi antar tab dan pengaturan konten.',
+        createdAt: DateTime.now().subtract(const Duration(days: 0)),
+        icon: Icons.tab,
+        image: 'assets/images/tab_layout.png',
       ),
       ListItem(
         title: 'Pertemuan 9',
         shortDesc: 'Date Picker dan Time Picker',
         desc:
-            'Pada pertemuan ini dibahas penggunaan Date Picker dan Time Picker di Flutter untuk memungkinkan pengguna memilih tanggal dan waktu, serta bagaimana cara menangani nilainya dalam state aplikasi.',
-        createdAt: DateTime.now().subtract(const Duration(days: 7)),
+            'Penggunaan Date Picker dan Time Picker di Flutter untuk memilih tanggal dan waktu.',
+        createdAt: DateTime.now().subtract(const Duration(days: 1)),
         icon: Icons.date_range,
+        image: 'assets/images/date_time_picker.webp',
+      ),
+      ListItem(
+        title: 'Pertemuan 8',
+        shortDesc: 'Spinner / Dropdown / SelectBox',
+        desc:
+            'Penggunaan Spinner, Dropdown, dan SelectBox untuk memilih salah satu dari beberapa opsi.',
+        createdAt: DateTime.now().subtract(const Duration(days: 2)),
+        icon: Icons.arrow_drop_down_circle,
+        image: 'assets/images/dropdown.png',
+      ),
+      ListItem(
+        title: 'Pertemuan 7',
+        shortDesc: 'Radio Button',
+        desc: 'Penggunaan Radio Button untuk input pilihan tunggal.',
+        createdAt: DateTime.now().subtract(const Duration(days: 3)),
+        icon: Icons.radio_button_checked,
+        image: 'assets/images/radio_button.webp',
+      ),
+      ListItem(
+        title: 'Pertemuan 6',
+        shortDesc: 'Checkbox',
+        desc: 'Membuat dan mengelola Checkbox di Flutter untuk pilihan ganda.',
+        createdAt: DateTime.now().subtract(const Duration(days: 4)),
+        icon: Icons.check_box,
+        image: 'assets/images/checkbox.png',
+      ),
+      ListItem(
+        title: 'Pertemuan 5',
+        shortDesc: 'List View',
+        desc: 'Menampilkan daftar data secara dinamis dengan ListView.',
+        createdAt: DateTime.now().subtract(const Duration(days: 5)),
+        icon: Icons.view_list,
+        image: 'assets/images/listview.jpg',
+      ),
+      ListItem(
+        title: 'Pertemuan 4',
+        shortDesc: 'Toast dan Alert Dialog',
+        desc:
+            'Menampilkan pesan singkat dengan Toast dan kotak dialog menggunakan AlertDialog.',
+        createdAt: DateTime.now().subtract(const Duration(days: 6)),
+        icon: Icons.notification_important,
+        image: 'assets/images/dialog.jpg',
+      ),
+      ListItem(
+        title: 'Pertemuan 3',
+        shortDesc: 'Activity dan Intent',
+        desc:
+            'Peran Activity dan penggunaan Intent untuk navigasi dan pengiriman data.',
+        createdAt: DateTime.now().subtract(const Duration(days: 7)),
+        icon: Icons.screen_rotation,
+        image: 'assets/images/intent.jpeg',
+      ),
+      ListItem(
+        title: 'Pertemuan 2',
+        shortDesc: 'Widget pada Android',
+        desc: 'Jenis widget dalam Flutter dan cara penggunaannya.',
+        createdAt: DateTime.now().subtract(const Duration(days: 8)),
+        icon: Icons.widgets,
+        image: 'assets/images/widget.webp',
+      ),
+      ListItem(
+        title: 'Pertemuan 1',
+        shortDesc: 'Pengenalan & Instalasi Flutter',
+        desc:
+            'Pengenalan Flutter dan panduan instalasi Flutter serta tools pendukung.',
+        createdAt: DateTime.now().subtract(const Duration(days: 9)),
+        icon: Icons.flutter_dash,
+        image: 'assets/images/flutters.png',
       ),
     ];
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
+      body: Stack(
         children: [
-          Header(
-            title: 'List Data',
-            icon: Icons.search,
-            onIconPressed: () {
-              showDateTimeDialog(context);
-            },
+          Container(
+            padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
+            height: 200,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              color: Color(0xFF4A00E0),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(40),
+                bottomRight: Radius.circular(40),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Expanded(
+                      child: Text(
+                        'List Data',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.info_outline, color: Colors.white),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const AboutScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                TextField(
+                  controller: searchController,
+                  onChanged: _filterList,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: 'Cari pertemuan...',
+                    hintStyle: const TextStyle(color: Colors.white54),
+                    filled: true,
+                    fillColor: Colors.white.withOpacity(0.2),
+                    prefixIcon: const Icon(Icons.search, color: Colors.white),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-          Expanded(
+
+          // List content
+          Padding(
+            padding: const EdgeInsets.only(top: 200),
             child: ListView.builder(
               padding: EdgeInsets.zero,
-              itemCount: listItems.length,
+              itemCount: filteredItems.length,
               itemBuilder: (context, index) {
-                final item = listItems[index];
+                final item = filteredItems[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 10,
@@ -132,9 +262,25 @@ class _ListScreenState extends State<ListScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            if (item.image != null)
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.asset(
+                                  item.image!,
+                                  height: 100,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            const SizedBox(height: 10),
                             Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                Icon(
+                                  item.icon,
+                                  size: 24,
+                                  color: Colors.black54,
+                                ),
+                                const SizedBox(width: 8),
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
@@ -145,33 +291,26 @@ class _ListScreenState extends State<ListScreen> {
                                         style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
-                                          color: Color(0xFFCF0F47),
+                                          color: Color(0xFF4A00E0),
                                         ),
                                       ),
-                                      const SizedBox(height: 8),
+                                      const SizedBox(height: 4),
                                       Text(
                                         item.shortDesc,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Color(0xFF1F1F1F),
-                                        ),
+                                        style: const TextStyle(fontSize: 14),
                                       ),
-                                      const SizedBox(height: 8),
+                                      const SizedBox(height: 4),
                                       Text(
                                         DateFormat(
                                           'yyyy-MM-dd HH:mm',
                                         ).format(item.createdAt),
                                         style: const TextStyle(
                                           fontSize: 10,
-                                          color: Color(0xFF1F1F1F),
+                                          color: Colors.grey,
                                         ),
                                       ),
                                     ],
                                   ),
-                                ),
-                                const Icon(
-                                  Icons.chevron_right,
-                                  color: Colors.grey,
                                 ),
                               ],
                             ),

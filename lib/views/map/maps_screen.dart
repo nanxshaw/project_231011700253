@@ -94,7 +94,7 @@ class _MapsScreenState extends State<MapsScreen> {
       appBar: AppBar(
         title: const Text('Maps',
             style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: const Color(0xFFFF0B55),
+        backgroundColor: const Color(0xFF4A00E0),
         foregroundColor: Colors.white,
       ),
       body: Stack(

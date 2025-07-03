@@ -30,7 +30,7 @@ class Header extends StatelessWidget {
               height: screenHeight * 0.27,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFFFF0B55), Color(0xFFCF0F47)],
+                  colors: [Color(0xFF4A00E0), Color(0xFF4A00E0)],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -38,52 +38,38 @@ class Header extends StatelessWidget {
             ),
           ),
         ),
-        
+
         SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            child: Row(
-              mainAxisAlignment: isTitleCentered 
-                  ? MainAxisAlignment.center 
-                  : MainAxisAlignment.spaceBetween,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+            height: screenHeight * 0.27,
+            child: Stack(
               children: [
-                if (!isTitleCentered) 
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                if (icon != null)
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: SizedBox(
+                      width: 48,
+                      height: 48,
+                      child: IconButton(
+                        icon: Icon(icon, color: Colors.white),
+                        onPressed: onIconPressed,
+                        tooltip: 'Logout',
                       ),
-                      const SizedBox(height: 4),
-                    ],
+                    ),
                   ),
 
-                if (icon != null) 
-                  IconButton(
-                    icon: Icon(icon, color: Colors.white),
-                    onPressed: onIconPressed,
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
-
-                if (isTitleCentered)
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                    ],
-                  ),
+                ),
               ],
             ),
           ),

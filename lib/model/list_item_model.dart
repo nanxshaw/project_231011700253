@@ -6,6 +6,7 @@ class ListItem {
   final String desc;
   final DateTime createdAt;
   final IconData icon;
+  final String? image;
 
   ListItem({
     required this.title,
@@ -13,5 +14,6 @@ class ListItem {
     required this.desc,
     required this.createdAt,
     required this.icon,
+    this.image,
   });
 }

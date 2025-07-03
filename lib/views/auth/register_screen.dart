@@ -1,8 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:dio/dio.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+
+  final Dio dio = Dio();
+
+  Future<void> register() async {
+    final name = nameController.text.trim();
+    final email = emailController.text.trim();
+    final password = passwordController.text;
+    final confirmPassword = confirmPasswordController.text;
+
+    if (name.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+      showError('Semua field harus diisi.');
+      return;
+    }
+
+    if (password != confirmPassword) {
+      showError('Password dan konfirmasi tidak cocok.');
+      return;
+    }
+
+    try {
+      final response = await dio.post(
+        'https://si-unpam-mp.buildhouse.my.id/api/register',
+        options: Options(
+          contentType: Headers.formUrlEncodedContentType,
+          headers: {'Accept': 'application/json'},
+        ),
+        data: {
+          'name': name,
+          'email': email,
+          'password': password,
+          'password_confirmation': confirmPassword,
+        },
+      );
+      if (response.statusCode == 201) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Registrasi berhasil!'), backgroundColor: Colors.green),
+        );
+        Navigator.pop(context); 
+      } else {
+        showError('Registrasi gagal.');
+      }
+    } on DioError catch (e) {
+      String msg = 'Terjadi kesalahan.';
+      if (e.response != null && e.response?.data != null) {
+        msg = e.response?.data['message'] ?? msg;
+      }
+      showError(msg);
+    }
+  }
+
+  void showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), backgroundColor: Colors.red),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +120,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 40),
                   TextField(
+                    controller: nameController,
                     decoration: InputDecoration(
                       hintText: 'Nama',
                       filled: true,
@@ -67,6 +134,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   TextField(
+                    controller: emailController,
                     decoration: InputDecoration(
                       hintText: 'Email',
                       filled: true,
@@ -80,6 +148,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   TextField(
+                    controller: passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: 'Password',
@@ -95,6 +164,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   TextField(
+                    controller: confirmPasswordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: 'Konfirmasi Password',
@@ -113,9 +183,7 @@ class RegisterScreen extends StatelessWidget {
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {
-                        // TODO: Handle register logic
-                      },
+                      onPressed: register,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepPurple,
                         foregroundColor: Colors.white,
@@ -127,7 +195,7 @@ class RegisterScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Text("Already have an account?", style: GoogleFonts.poppins(color: Colors.grey)),
+                  Text("Sudah punya akun?", style: GoogleFonts.poppins(color: Colors.grey)),
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -149,10 +217,8 @@ class TopCurvedClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     final path = Path();
     path.lineTo(0, size.height * 0.85);
-
     final controlPoint = Offset(size.width / 2, size.height);
     final endPoint = Offset(size.width, size.height * 0.85);
-
     path.quadraticBezierTo(controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy);
     path.lineTo(size.width, 0);
     path.close();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_231011700253/component/header.dart';
-import 'package:project_231011700253/views/media/media_screen.dart';
+// import 'package:project_231011700253/views/media/media_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -78,8 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: InkWell(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (_) =>  MediaListView()));
+
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Icon(
                 icon,
                 size: 40,
-                color: const Color(0xFFFF0B55),
+                color: const Color(0xFF4A00E0),
               ),
               const SizedBox(height: 12),
               Text(

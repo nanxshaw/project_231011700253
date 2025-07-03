@@ -18,7 +18,7 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     final button = ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFFCF0F47),
+        backgroundColor: const Color(0xFF4A00E0),
         foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),

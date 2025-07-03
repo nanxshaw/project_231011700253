@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:project_231011700253/component/button.dart';
 import 'package:project_231011700253/model/list_item_model.dart';
 import 'package:project_231011700253/views/map/maps_screen.dart';
 
@@ -47,11 +46,14 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                     onChanged: (value) {
                       setStateDialog(() {
-                        filteredList = data
-                            .where((e) => e
-                                .toLowerCase()
-                                .contains(value.toLowerCase()))
-                            .toList();
+                        filteredList =
+                            data
+                                .where(
+                                  (e) => e.toLowerCase().contains(
+                                    value.toLowerCase(),
+                                  ),
+                                )
+                                .toList();
                       });
                     },
                   ),
@@ -118,12 +120,13 @@ class _DetailScreenState extends State<DetailScreen> {
                       labelText: "Cari Data",
                       border: OutlineInputBorder(),
                     ),
-                    items: dataList2.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+                    items:
+                        dataList2.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
                     onChanged: (val) {
                       setStateDialog(() {
                         selected = val;
@@ -159,14 +162,17 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final formattedDate =
-        DateFormat('yyyy-MM-dd HH:mm').format(widget.item.createdAt);
+    final formattedDate = DateFormat(
+      'yyyy-MM-dd HH:mm',
+    ).format(widget.item.createdAt);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('List Detail',
-            style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: const Color(0xFFFF0B55),
+        title: const Text(
+          'List Detail',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: const Color(0xFF4A00E0),
         foregroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,
@@ -175,6 +181,26 @@ class _DetailScreenState extends State<DetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.asset(
+                widget.item.image.toString(),
+                width: double.infinity,
+                height: 200,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    height: 200,
+                    color: Colors.grey[300],
+                    child: const Center(
+                      child: Icon(Icons.broken_image, size: 48),
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 16),
+
             Icon(widget.item.icon, size: 40, color: Colors.black54),
             const SizedBox(height: 16),
             Text(
@@ -182,42 +208,86 @@ class _DetailScreenState extends State<DetailScreen> {
               style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFCF0F47),
+                color: Color(0xFF4A00E0),
               ),
             ),
             const SizedBox(height: 12),
-            Text(widget.item.shortDesc,
-                style: const TextStyle(fontSize: 18, color: Colors.black87)),
+            Text(
+              widget.item.shortDesc,
+              style: const TextStyle(fontSize: 18, color: Colors.black87),
+            ),
             const SizedBox(height: 16),
-            Text(widget.item.desc,
-                style: const TextStyle(fontSize: 16, color: Colors.black54)),
+            Text(
+              widget.item.desc,
+              style: const TextStyle(fontSize: 16, color: Colors.black54),
+            ),
             const SizedBox(height: 20),
-            Text('Created At: $formattedDate',
-                style: const TextStyle(fontSize: 12, color: Colors.grey)),
+            Text(
+              'Created At: $formattedDate',
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
+            ),
             const SizedBox(height: 30),
-            Button(
-              text: 'Pilih Data',
-              isFullWidth: true,
-              onPressed: _showPopup,
-            ),
-            const SizedBox(height: 10),
-            Button(
-              text: 'Autocomplete Data',
-              isFullWidth: true,
-              onPressed: _showAutocompletePopup,
-            ),
-            Button(
-              text: 'Lihat Maps',
-              isFullWidth: true,
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) =>  MapsScreen())),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    backgroundColor: const Color(0xFF4A00E0),
+                    foregroundColor: Colors.white,
+                  ),
+                  icon: const Icon(Icons.list_alt),
+                  label: const Text('Pilih Data'),
+                  onPressed: _showPopup,
+                ),
+                const SizedBox(height: 10),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    backgroundColor: const Color(0xFF4A00E0),
+                    foregroundColor: Colors.white,
+                  ),
+                  icon: const Icon(Icons.auto_awesome),
+                  label: const Text('Autocomplete Data'),
+                  onPressed: _showAutocompletePopup,
+                ),
+                const SizedBox(height: 10),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    backgroundColor: const Color(0xFF4A00E0),
+                    foregroundColor: Colors.white,
+                  ),
+                  icon: const Icon(Icons.map),
+                  label: const Text('Lihat Maps'),
+                  onPressed:
+                      () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => MapsScreen()),
+                      ),
+                ),
+              ],
             ),
             const SizedBox(height: 20),
             if (selectedItem1 != null)
-              Text("Data dipilih: $selectedItem1",
-                  style: const TextStyle(fontSize: 16)),
+              Text(
+                "Data dipilih: $selectedItem1",
+                style: const TextStyle(fontSize: 16),
+              ),
             if (selectedItem2 != null)
-              Text("Data dipilih: $selectedItem2",
-                  style: const TextStyle(fontSize: 16)),
+              Text(
+                "Data dipilih: $selectedItem2",
+                style: const TextStyle(fontSize: 16),
+              ),
           ],
         ),
       ),

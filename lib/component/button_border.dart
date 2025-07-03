@@ -14,7 +14,7 @@ class ButtonBorder extends StatelessWidget {
     required this.onPressed,
     this.alignment = Alignment.center,
     this.borderWidth = 2.0,
-    this.borderColor = const Color(0xFFCF0F47),
+    this.borderColor = const Color(0xFF4A00E0),
     this.isFullWidth = false,
   }) : super(key: key);
 
@@ -22,7 +22,7 @@ class ButtonBorder extends StatelessWidget {
   Widget build(BuildContext context) {
     final button = ElevatedButton(
       style: ElevatedButton.styleFrom(
-        foregroundColor: const Color(0xFFCF0F47),
+        foregroundColor: const Color(0xFF4A00E0),
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
